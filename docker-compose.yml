@@ -4,17 +4,12 @@ services:
     image: selenium/hub:2.53.0
     ports:
       - "4444:4444"
+    volumes:
+      - "/dev/urandom:/dev/random"
   chrome:
-    image: harreorz/node-chrome-ja:2.53.0
-    environment:
-      - HUB_PORT_4444_TCP_ADDR=hub
-      - HUB_PORT_4444_TCP_PORT=4444
-    depends_on:
-      - hub
-    tmpfs:
-      - /tmp
-  chrome-debug:
-    image: harreorz/node-chrome-debug-ja:2.53.0
+    #image: selenium/node-chrome-debug:2.53.0
+    #ports: [ "5900" ]
+    build: chrome
     environment:
       - HUB_PORT_4444_TCP_ADDR=hub
       - HUB_PORT_4444_TCP_PORT=4444
@@ -23,16 +18,9 @@ services:
     tmpfs:
       - /tmp
   firefox:
-    image: harreorz/node-chrome-ja:2.53.0
-    environment:
-      - HUB_PORT_4444_TCP_ADDR=hub
-      - HUB_PORT_4444_TCP_PORT=4444
-    depends_on:
-      - hub
-    tmpfs:
-      - /tmp
-  firefox-debug:
-    image: harreorz/node-firefox-debug-ja:2.53.0
+    #image: selenium/node-firefox-debug:2.53.0
+    #ports: [ "5900" ]
+    build: firefox
     environment:
       - HUB_PORT_4444_TCP_ADDR=hub
       - HUB_PORT_4444_TCP_PORT=4444
