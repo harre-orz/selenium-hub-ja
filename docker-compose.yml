@@ -1,39 +1,42 @@
 version: "2"
 services:
   hub:
-    image: selenium/hub:3.2.0
+    image: selenium/hub:2.53.0
     ports:
       - "4444:4444"
   chrome:
-#    image: selenium/node-chrome:3.2.0
-    build: chrome
+    image: harreorz/node-chrome-ja:2.53.0
     environment:
       - HUB_PORT_4444_TCP_ADDR=hub
       - HUB_PORT_4444_TCP_PORT=4444
-    links:
+    depends_on:
       - hub
+    tmpfs:
+      - /tmp
   chrome-debug:
-#    image: selenium/node-chrome-debug:3.2.0
-    build: chrome-debug
+    image: harreorz/node-chrome-debug-ja:2.53.0
     environment:
       - HUB_PORT_4444_TCP_ADDR=hub
       - HUB_PORT_4444_TCP_PORT=4444
-    links:
+    depends_on:
       - hub
+    tmpfs:
+      - /tmp
   firefox:
-#    image: selenium/node-firefox:3.2.0
-    build: firefox
+    image: harreorz/node-chrome-ja:2.53.0
     environment:
       - HUB_PORT_4444_TCP_ADDR=hub
       - HUB_PORT_4444_TCP_PORT=4444
-    links:
+    depends_on:
       - hub
+    tmpfs:
+      - /tmp
   firefox-debug:
-#    image: selenium/node-chrome-debug:3.2.0
-    build: firefox-debug
+    image: harreorz/node-firefox-debug-ja:2.53.0
     environment:
       - HUB_PORT_4444_TCP_ADDR=hub
       - HUB_PORT_4444_TCP_PORT=4444
-    links:
+    depends_on:
       - hub
-
+    tmpfs:
+      - /tmp
